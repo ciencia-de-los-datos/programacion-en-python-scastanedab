@@ -13,19 +13,37 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+with open("data.csv","r") as file:
+ data = file.readlines()
+ data = [row.split('\t') for row in data] #\t es el delimitador 
+ print(data)
+ data2 = [row[1] for row in data]
+ print(data2)
+    #data = list(reader)
+    #print(data)
+    #data = [row.split('\t') for row in data]
+
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
 
     Rta/
     214
-
     """
-    return
+    with open("data.csv","r") as file:
+        data = file.readlines()
+    data = [row.split('\t') for row in data] #\t es el delimitador 
+    data2 = [row[1] for row in data]
+    
+    sum = 0 
+    for x in data2:
+        sum += int(x[0])
+    return sum
 
+print(pregunta_01())
 
+"""
 def pregunta_02():
-    """
     Retorne la cantidad de registros por cada letra de la primera columna como la lista
     de tuplas (letra, cantidad), ordendas alfabéticamente.
 
@@ -38,9 +56,26 @@ def pregunta_02():
         ("E", 14),
     ]
 
-    """
-    return
 
+    #Pasos: 1 llamar base de datos
+    # 2 sacar primero las letras individuales con un set
+    # 3 hacer el conteo 
+    
+    diccionario = []
+    listado = []
+
+    for letra in data:
+
+           diccionario.append(letra[0])
+
+    for x in diccionario:
+        listado.append((x,diccionario.count(x)))
+
+    return sorted(set(listado))
+  
+print(pregunta_02())
+
+"""
 
 def pregunta_03():
     """
@@ -57,8 +92,10 @@ def pregunta_03():
     ]
 
     """
-    return
+"""
 
+print(pregunta_03())
+"""
 
 def pregunta_04():
     """
