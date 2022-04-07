@@ -365,8 +365,31 @@ def pregunta_09():
     }
 
     """
-    return
+    with open("data.csv","r") as file: 
+        data9 = file.readlines() 
+    data9 = [f.replace("\n","") for f in data9]
+    data9 = [row.split("\t") for row in data9]
+    data9col5 = [row[4] for row in data9]
+    data9col5 = [row.split(",") for row in data9col5]
 
+    list9 = []
+
+    for item in data9col5: #aplanar listas
+        list9 += item
+
+    data6col5 = [row.split(":") for row in list9]
+    col9 = [row[0] for row in data6col5] #para sacar solo la columna de las letras 
+
+    listado = []
+
+    for x in col9:
+        listado.append((x,col9.count(x)))
+
+    list9 = sorted(set(listado))
+
+    return list9
+
+print(pregunta_09())
 
 def pregunta_10():
     """
