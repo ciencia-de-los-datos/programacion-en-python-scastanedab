@@ -409,8 +409,16 @@ def pregunta_10():
 
 
     """
-    return
-    
+    with open("data.csv","r") as file: #estamos leyendo el archivo 
+        data = file.readlines() #asi leemos todas las lineas
+    data = [f.replace("\n","") for f in data]
+    data = [row.split("\t") for row in data]
+
+    listatuplas = [((x[0],(len(x[3].split(","))),(len(x[4].split(","))))) for x in data]
+
+    return listatuplas
+
+print(pregunta_10())
 
 def pregunta_11():
     """
