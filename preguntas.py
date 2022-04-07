@@ -42,8 +42,8 @@ def pregunta_01():
 
 print(pregunta_01())
 
-"""
 def pregunta_02():
+    """
     Retorne la cantidad de registros por cada letra de la primera columna como la lista
     de tuplas (letra, cantidad), ordendas alfabéticamente.
 
@@ -55,27 +55,28 @@ def pregunta_02():
         ("D", 6),
         ("E", 14),
     ]
+    """
+    with open("data.csv","r") as file:  
+     data2 = file.readlines()
+    data2 = [row[0] for row in data2]
 
+    dic_result = dict()  
 
-    #Pasos: 1 llamar base de datos
-    # 2 sacar primero las letras individuales con un set
-    # 3 hacer el conteo 
-    
-    diccionario = []
-    listado = []
+    for letra in data2:                            
+        if letra in dic_result.keys():
+            dic_result[letra] = dic_result[letra] + 1
+        else:
+            dic_result[letra] = 1  
 
-    for letra in data:
+    tuplas2 = [(key,valor) for key,valor in dic_result.items()]
 
-           diccionario.append(letra[0])
+    tuplas_2 = sorted(tuplas2)
 
-    for x in diccionario:
-        listado.append((x,diccionario.count(x)))
-
-    return sorted(set(listado))
+    return tuplas_2
   
 print(pregunta_02())
 
-"""
+
 
 def pregunta_03():
     """
