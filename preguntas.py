@@ -181,8 +181,26 @@ def pregunta_05():
     ]
 
     """
-    return
+    with open("data.csv","r") as file: #estamos leyendo el archivo 
+        data = file.readlines() #asi leemos todas las lineas 
+    data = [row.split('\t') for row in data]
+    data = [row[:2] for row in data] #extraer las primeras dos columnas
 
+    result_dict = {}
+    for letra,valor in data:
+        valor = int(valor) #para darle una transformación en valores
+        if letra in result_dict.keys():                                  #si la letra existe voy a pegar en una lista el valor que estoy viendo nuevo
+         result_dict[letra].append(valor)
+        else:
+            result_dict[letra] = [valor]  #vayamelo agregando, no me haga ninguna operación
+                                            #cuando de la vuelta y encuentre la misma letra le va a pegar el valor que vimos allí 
+    result_dict = [(key,max(valor),min(valor)) for key,valor in result_dict.items()] #key es la letra y valor es los números que están al frente
+
+    list5 = sorted(result_dict)
+
+    return list5
+
+print(pregunta_05()) 
 
 def pregunta_06():
     """
@@ -206,8 +224,36 @@ def pregunta_06():
     ]
 
     """
-    return
+    with open("data.csv","r") as file: 
+        data6 = file.readlines() 
+    data6 = [f.replace("\n","") for f in data6]
+    data6 = [row.split("\t") for row in data6]
+    data6col5 = [row[4] for row in data6]
+    data6col5 = [row.split(",") for row in data6col5]
 
+    list6 = []
+
+    for item in data6col5: #Aplanar la lista
+        list6 += item
+
+    data6col5 = [row.split(":") for row in list6]
+
+    result6 = {}
+
+    for letra,valor in data6col5:
+        valor = int(valor)
+        if letra in result6.keys():
+            result6[letra].append(valor)  
+        else:
+            result6[letra] = [valor] 
+
+    result6 = [(key,min(valor),max(valor)) for key,valor in result6.items()]
+
+    list6 = sorted(result6)
+
+    return list6
+
+print(pregunta_06())
 
 def pregunta_07():
     """
