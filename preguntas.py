@@ -385,7 +385,7 @@ def pregunta_09():
     for x in col9:
         listado.append((x,col9.count(x)))
 
-    list9 = sorted(set(listado))
+    list9 = dict(sorted(set(listado)))
 
     return list9
 
@@ -456,4 +456,45 @@ def pregunta_12():
     }
 
     """
-    return
+    with open("data.csv","r") as file: 
+     data = file.readlines() 
+    data = [f.replace("\n","") for f in data]
+    data = [f.replace("\t",";") for f in data]
+    data12 = [row.split(";") for row in data]
+
+    lst_lista = [[row[0],row[4]] for row in data12] #[row[4] for row in data12]
+
+    lst_nueva = []
+
+    for tpl_tupla in lst_lista:
+        int_suma = 0
+        lst_comas = tpl_tupla[1].split(",")
+        for str_elemento in lst_comas:
+                lst_dos_puntos = str_elemento.split(":")
+                int_numero = int(lst_dos_puntos[1])
+                int_suma += int_numero
+        lst_nueva.append((tpl_tupla[0],int_suma))
+
+    dicc12 = {}
+
+    for i in lst_nueva: #documentación misma clave suma de valores https://es.stackoverflow.com/questions/443109/misma-clave-suma-de-valores-en-diccionarios-en-python
+        if i[0] not in dicc12: #vaya mire si el elemento de la posición 0 no está en el diccionario
+            dicc12[i[0]] = i[1] #para que lo agregue
+        else:                 #en caso contrario, si sí está sumele 
+            dicc12[i[0]] += i [1]
+
+    result12 = sorted(dicc12.items())
+
+    dicc_final12 = {} #para ordenar nuevamente como diccionario
+
+    for item in result12:
+      nueva_clave = item[0]
+      nuevo_valor = item[1]
+      dicc_final12 [nueva_clave] = nuevo_valor
+    
+    dicc_final12
+
+    return dicc_final12
+
+print(pregunta_12())
+
