@@ -276,8 +276,25 @@ def pregunta_07():
     ]
 
     """
-    return
+    with open("data.csv","r") as file: 
+        data7 = file.readlines() 
+    
+    col7 = [[row[0],int(row[2])] for row in data7] 
 
+    dic_numeros = {}
+
+    for x in col7:
+        dic_numeros.setdefault(x[1],[]).append(x[0]) #me va agregando el número [1] y me va dejando vacio para despues agregarlo con las letras [0]
+
+    dicclist = dic_numeros.items()
+
+    dicclist = list(dicclist)
+
+    list7 = sorted(dicclist)
+
+    return list7
+
+print(pregunta_07())
 
 def pregunta_08():
     """
@@ -301,8 +318,32 @@ def pregunta_08():
     ]
 
     """
-    return
+    with open("data.csv","r") as file: 
+        data8 = file.readlines() 
+    col7 = [[row[0],int(row[2])] for row in data8] 
 
+    dic_numeros = {}
+
+    for x in col7:
+        dic_numeros.setdefault(x[1],[]).append(x[0]) 
+    dicclist = dic_numeros.items()
+
+    dicclist = list(dicclist)
+
+    punto8 = sorted(dicclist)
+
+    dic8 = {}
+
+    for x in punto8:
+        dic8.setdefault(x[0],[]).append(sorted(set(x[1]))) 
+
+    dic8 = dic8.items()
+
+    dic8 = list(dic8)
+
+    return dic8
+
+print(pregunta_08())
 
 def pregunta_09():
     """
