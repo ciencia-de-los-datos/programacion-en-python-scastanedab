@@ -93,10 +93,36 @@ def pregunta_03():
     ]
 
     """
-"""
+    with open("data.csv","r") as file:
+        data = file.readlines()
+    data3 = [[row[0],int(row[2])] for row in data] # encapzular dentro de la misma lista varias columnas
+
+    diccionario = {}
+
+    key = [row[0] for row in data3]
+
+    values = [(row[1]) for row in data3]
+
+    diccionario = list((zip(key,values)))
+
+    dicci = {}
+
+    for i in diccionario:
+        if i[0] not in dicci:
+            dicci[i[0]] = i[1]
+        else:
+            dicci[i[0]] += i[1]
+
+    my_list = dicci.items()
+
+    my_list = list(my_list)
+
+    my_list3 = sorted(my_list)
+
+    return my_list3
 
 print(pregunta_03())
-"""
+
 
 def pregunta_04():
     """
