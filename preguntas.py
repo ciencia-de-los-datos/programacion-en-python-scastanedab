@@ -146,7 +146,27 @@ def pregunta_04():
     ]
 
     """
-    return
+    with open("data.csv","r") as file:
+        data = file.readlines()
+    data = [f.replace("\t",";") for f in data]
+    data = [f.split(";") for f in data]
+    datoscol = list(data)
+    fecha = [row[2] for row in datoscol]
+    fechacol = [f.split("-") for f in fecha]
+    mes = [row[1] for row in fechacol]
+
+    #diccimes = set(mes)
+
+    listado = []
+
+    for i in mes:
+        listado.append((i,mes.count(i)))
+
+    list4 = print(sorted(set(listado)))
+
+    return list4
+
+print(pregunta_04()) 
 
 
 def pregunta_05():
