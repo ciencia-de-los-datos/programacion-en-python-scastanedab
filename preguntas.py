@@ -154,16 +154,13 @@ def pregunta_04():
     fecha = [row[2] for row in datoscol]
     fechacol = [f.split("-") for f in fecha]
     mes = [row[1] for row in fechacol]
-
-    #diccimes = set(mes)
+#diccimes = set(mes)
 
     listado = []
 
     for i in mes:
         listado.append((i,mes.count(i)))
-
-    list4 = print(sorted(set(listado)))
-
+    list4 = sorted(set(listado))
     return list4
 
 print(pregunta_04()) 
