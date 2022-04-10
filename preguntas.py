@@ -435,11 +435,31 @@ def pregunta_11():
         "f": 134,
         "g": 35,
     }
+    
 
 
     """
-    return
+    with open("data.csv","r") as file: #estamos leyendo el archivo 
+        data = file.readlines() #asi leemos todas las lineas
+    data = [f.replace("\n","") for f in data]
+    data = [row.split("\t") for row in data]
 
+    data11 = [row[3] for row in data]
+    data11 = [x.split(',') for x in data11]
+    lista11 = sorted(set([x[y] for x in data11 for y in range(len(x))]))
+
+    diccionario11 = dict()
+
+    for x in lista11:
+        for y in data:
+            if x in y[3] and x not in diccionario11.keys():
+                diccionario11[x] = int(y[1])
+            elif x in y[3]:
+                diccionario11[x] +=int(y[1])   
+
+    return diccionario11
+
+print(pregunta_11())
 
 def pregunta_12():
     """
