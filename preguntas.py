@@ -13,16 +13,34 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+with open("data.csv","r") as file:
+ data = file.readlines()
+ data = [row.split('\t') for row in data] #\t es el delimitador 
+ print(data)
+ data2 = [row[1] for row in data]
+ print(data2)
+    #data = list(reader)
+    #print(data)
+    #data = [row.split('\t') for row in data]
+
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
 
     Rta/
     214
-
     """
-    return
+    with open("data.csv","r") as file:
+        data = file.readlines()
+    data = [row.split('\t') for row in data] #\t es el delimitador 
+    data2 = [row[1] for row in data]
+    
+    sum = 0 
+    for x in data2:
+        sum += int(x[0])
+    return sum
 
+print(pregunta_01())
 
 def pregunta_02():
     """
@@ -37,9 +55,27 @@ def pregunta_02():
         ("D", 6),
         ("E", 14),
     ]
-
     """
-    return
+    with open("data.csv","r") as file:  
+     data2 = file.readlines()
+    data2 = [row[0] for row in data2]
+
+    dic_result = dict()  
+
+    for letra in data2:                            
+        if letra in dic_result.keys():
+            dic_result[letra] = dic_result[letra] + 1
+        else:
+            dic_result[letra] = 1  
+
+    tuplas2 = [(key,valor) for key,valor in dic_result.items()]
+
+    tuplas_2 = sorted(tuplas2)
+
+    return tuplas_2
+  
+print(pregunta_02())
+
 
 
 def pregunta_03():
@@ -57,7 +93,35 @@ def pregunta_03():
     ]
 
     """
-    return
+    with open("data.csv","r") as file:
+        data = file.readlines()
+    data3 = [[row[0],int(row[2])] for row in data] # encapzular dentro de la misma lista varias columnas
+
+    diccionario = {}
+
+    key = [row[0] for row in data3]
+
+    values = [(row[1]) for row in data3]
+
+    diccionario = list((zip(key,values)))
+
+    dicci = {}
+
+    for i in diccionario:
+        if i[0] not in dicci:
+            dicci[i[0]] = i[1]
+        else:
+            dicci[i[0]] += i[1]
+
+    my_list = dicci.items()
+
+    my_list = list(my_list)
+
+    my_list3 = sorted(my_list)
+
+    return my_list3
+
+print(pregunta_03())
 
 
 def pregunta_04():
@@ -82,7 +146,24 @@ def pregunta_04():
     ]
 
     """
-    return
+    with open("data.csv","r") as file:
+        data = file.readlines()
+    data = [f.replace("\t",";") for f in data]
+    data = [f.split(";") for f in data]
+    datoscol = list(data)
+    fecha = [row[2] for row in datoscol]
+    fechacol = [f.split("-") for f in fecha]
+    mes = [row[1] for row in fechacol]
+#diccimes = set(mes)
+
+    listado = []
+
+    for i in mes:
+        listado.append((i,mes.count(i)))
+    list4 = sorted(set(listado))
+    return list4
+
+print(pregunta_04()) 
 
 
 def pregunta_05():
@@ -100,8 +181,26 @@ def pregunta_05():
     ]
 
     """
-    return
+    with open("data.csv","r") as file: #estamos leyendo el archivo 
+        data = file.readlines() #asi leemos todas las lineas 
+    data = [row.split('\t') for row in data]
+    data = [row[:2] for row in data] #extraer las primeras dos columnas
 
+    result_dict = {}
+    for letra,valor in data:
+        valor = int(valor) #para darle una transformación en valores
+        if letra in result_dict.keys():                                  #si la letra existe voy a pegar en una lista el valor que estoy viendo nuevo
+         result_dict[letra].append(valor)
+        else:
+            result_dict[letra] = [valor]  #vayamelo agregando, no me haga ninguna operación
+                                            #cuando de la vuelta y encuentre la misma letra le va a pegar el valor que vimos allí 
+    result_dict = [(key,max(valor),min(valor)) for key,valor in result_dict.items()] #key es la letra y valor es los números que están al frente
+
+    list5 = sorted(result_dict)
+
+    return list5
+
+print(pregunta_05()) 
 
 def pregunta_06():
     """
@@ -125,8 +224,36 @@ def pregunta_06():
     ]
 
     """
-    return
+    with open("data.csv","r") as file: 
+        data6 = file.readlines() 
+    data6 = [f.replace("\n","") for f in data6]
+    data6 = [row.split("\t") for row in data6]
+    data6col5 = [row[4] for row in data6]
+    data6col5 = [row.split(",") for row in data6col5]
 
+    list6 = []
+
+    for item in data6col5: #Aplanar la lista
+        list6 += item
+
+    data6col5 = [row.split(":") for row in list6]
+
+    result6 = {}
+
+    for letra,valor in data6col5:
+        valor = int(valor)
+        if letra in result6.keys():
+            result6[letra].append(valor)  
+        else:
+            result6[letra] = [valor] 
+
+    result6 = [(key,min(valor),max(valor)) for key,valor in result6.items()]
+
+    list6 = sorted(result6)
+
+    return list6
+
+print(pregunta_06())
 
 def pregunta_07():
     """
@@ -149,8 +276,25 @@ def pregunta_07():
     ]
 
     """
-    return
+    with open("data.csv","r") as file: 
+        data7 = file.readlines() 
+    
+    col7 = [[row[0],int(row[2])] for row in data7] 
 
+    dic_numeros = {}
+
+    for x in col7:
+        dic_numeros.setdefault(x[1],[]).append(x[0]) #me va agregando el número [1] y me va dejando vacio para despues agregarlo con las letras [0]
+
+    dicclist = dic_numeros.items()
+
+    dicclist = list(dicclist)
+
+    list7 = sorted(dicclist)
+
+    return list7
+
+print(pregunta_07())
 
 def pregunta_08():
     """
@@ -174,8 +318,29 @@ def pregunta_08():
     ]
 
     """
-    return
+    with open("data.csv","r") as file: 
+      data7 = file.readlines() 
+    
+    col7 = [[row[0],int(row[2])] for row in data7] 
 
+    dic_numeros = {}
+
+    for x in col7:
+        dic_numeros.setdefault(x[1],[]).append(x[0]) #me va agregando el número [1] y me va dejando vacio para despues agregarlo con las letras [0]
+
+    dicclist = dic_numeros.items()
+
+    dicclist = list(dicclist)
+
+    list7 = sorted(dicclist)
+
+    list8 = [(x[0],sorted(set(x[1]))) for x in list7]
+
+    return list8
+
+    return dic8
+
+print(pregunta_08())
 
 def pregunta_09():
     """
@@ -197,8 +362,31 @@ def pregunta_09():
     }
 
     """
-    return
+    with open("data.csv","r") as file: 
+        data9 = file.readlines() 
+    data9 = [f.replace("\n","") for f in data9]
+    data9 = [row.split("\t") for row in data9]
+    data9col5 = [row[4] for row in data9]
+    data9col5 = [row.split(",") for row in data9col5]
 
+    list9 = []
+
+    for item in data9col5: #aplanar listas
+        list9 += item
+
+    data6col5 = [row.split(":") for row in list9]
+    col9 = [row[0] for row in data6col5] #para sacar solo la columna de las letras 
+
+    listado = []
+
+    for x in col9:
+        listado.append((x,col9.count(x)))
+
+    list9 = dict(sorted(set(listado)))
+
+    return list9
+
+print(pregunta_09())
 
 def pregunta_10():
     """
@@ -218,8 +406,16 @@ def pregunta_10():
 
 
     """
-    return
+    with open("data.csv","r") as file: #estamos leyendo el archivo 
+        data = file.readlines() #asi leemos todas las lineas
+    data = [f.replace("\n","") for f in data]
+    data = [row.split("\t") for row in data]
 
+    listatuplas = [((x[0],(len(x[3].split(","))),(len(x[4].split(","))))) for x in data]
+
+    return listatuplas
+
+print(pregunta_10())
 
 def pregunta_11():
     """
@@ -236,11 +432,31 @@ def pregunta_11():
         "f": 134,
         "g": 35,
     }
+    
 
 
     """
-    return
+    with open("data.csv","r") as file: #estamos leyendo el archivo 
+        data = file.readlines() #asi leemos todas las lineas
+    data = [f.replace("\n","") for f in data]
+    data = [row.split("\t") for row in data]
 
+    data11 = [row[3] for row in data]
+    data11 = [x.split(',') for x in data11]
+    lista11 = sorted(set([x[y] for x in data11 for y in range(len(x))]))
+
+    diccionario11 = dict()
+
+    for x in lista11:
+        for y in data:
+            if x in y[3] and x not in diccionario11.keys():
+                diccionario11[x] = int(y[1])
+            elif x in y[3]:
+                diccionario11[x] +=int(y[1])   
+
+    return diccionario11
+
+print(pregunta_11())
 
 def pregunta_12():
     """
@@ -257,4 +473,45 @@ def pregunta_12():
     }
 
     """
-    return
+    with open("data.csv","r") as file: 
+     data = file.readlines() 
+    data = [f.replace("\n","") for f in data]
+    data = [f.replace("\t",";") for f in data]
+    data12 = [row.split(";") for row in data]
+
+    lst_lista = [[row[0],row[4]] for row in data12] #[row[4] for row in data12]
+
+    lst_nueva = []
+
+    for tpl_tupla in lst_lista:
+        int_suma = 0
+        lst_comas = tpl_tupla[1].split(",")
+        for str_elemento in lst_comas:
+                lst_dos_puntos = str_elemento.split(":")
+                int_numero = int(lst_dos_puntos[1])
+                int_suma += int_numero
+        lst_nueva.append((tpl_tupla[0],int_suma))
+
+    dicc12 = {}
+
+    for i in lst_nueva: #documentación misma clave suma de valores https://es.stackoverflow.com/questions/443109/misma-clave-suma-de-valores-en-diccionarios-en-python
+        if i[0] not in dicc12: #vaya mire si el elemento de la posición 0 no está en el diccionario
+            dicc12[i[0]] = i[1] #para que lo agregue
+        else:                 #en caso contrario, si sí está sumele 
+            dicc12[i[0]] += i [1]
+
+    result12 = sorted(dicc12.items())
+
+    dicc_final12 = {} #para ordenar nuevamente como diccionario
+
+    for item in result12:
+      nueva_clave = item[0]
+      nuevo_valor = item[1]
+      dicc_final12 [nueva_clave] = nuevo_valor
+    
+    dicc_final12
+
+    return dicc_final12
+
+print(pregunta_12())
+
